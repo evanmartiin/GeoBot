@@ -10,6 +10,7 @@ const EMOJIS = {
   PARTY: String.fromCodePoint(0x1F389),
   CRY: String.fromCodePoint(0x1F62D),
   THINK: String.fromCodePoint(0x1F914),
+  WAVE: String.fromCodePoint(0x1F44B),
 }
 
 const COUNTRY_NAMES = [

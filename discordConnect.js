@@ -3,7 +3,7 @@ import { events } from "./events/index.js";
 import { commands } from "./commands/index.js";
 
 export const discordConnect = async () => {
-  const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+  const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
   for (const event of events) {
     if (event.once) {

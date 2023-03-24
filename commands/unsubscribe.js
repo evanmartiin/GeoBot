@@ -12,6 +12,7 @@ export const unsubscribe = {
     if (interaction.member.roles.cache.has(role.id)) {
       interaction.member.roles.remove(role);
       await interaction.editReply({ content: `${EMOJIS.CRY} You successfully unsubscribed.`});
+      console.log(`${interaction.user.tag} unsubscribed.`);
       return;
     } else {
       await interaction.editReply({ content: `${EMOJIS.THINK} You're not subscribed.\n**/subscribe** if you want to.`});

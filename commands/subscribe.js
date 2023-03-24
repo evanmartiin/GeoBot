@@ -15,6 +15,7 @@ export const subscribe = {
     } else {
       interaction.member.roles.add(role);
       await interaction.editReply({ content: `${EMOJIS.PARTY} You successfully subscribed!\nYou'll be mentioned __everyday at ${TRIGGER_TIME}__ for the **Country of the Day**.\nYou now have access to <#${process.env.DISCORD_CHANNEL_ID}>.`});
+      console.log(`${interaction.user.tag} subscribed.`);
       return;
     }
   },
