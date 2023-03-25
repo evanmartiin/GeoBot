@@ -1,8 +1,8 @@
 const START_DATE = new Date(2023, 2, 25);
 
-const TRIGGER_TIME = "10:30";
+const TRIGGER_TIME = "9:30";
 
-const ORIGINAL_PROMPT = "Je veux des informations sur le pays appelé COUNTRY_NAME. Situe-le en me donnant son continent et les noms de ses pays voisins, sans donner de direction. Ensuite donne-moi sa capitale, les langues parlées dans le pays, et un fait insolite sur ce pays. Rédige un seul paragraphe bref avec uniquement ces informations.";
+const ORIGINAL_PROMPT = "Je veux des informations sur le pays appelé COUNTRY_NAME. Situe-le en me donnant son continent et les noms de ses pays voisins, sans donner de direction. Ensuite donne-moi sa capitale, les langues parlées dans le pays, et quelques informations utiles vérifiées qui sont présentes sur la page Wikipédia du pays. Rédige un seul paragraphe bref avec uniquement ces informations.";
 
 const EMOJIS = {
   CUP: String.fromCodePoint(0x1F3C6),
