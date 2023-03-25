@@ -1,19 +1,18 @@
 import { Configuration, OpenAIApi } from "openai";
-import { COUNTRY_NAMES, START_DATE, ORIGINAL_PROMPT, EMOJIS } from "./constants.js";
+import { COUNTRIES, ORIGINAL_PROMPT, EMOJIS } from "./constants.js";
 
-export const getMessageOfToday = async () => {
+export const getMessageOfToday = async (country) => {
   const openai = openaiConnect();
-  const country = pickCountryOfToday(new Date());
-  const number = COUNTRY_NAMES.indexOf(country) + 1;
-  const url = `https://www.google.com/maps/place/${country.replaceAll(" ", "+")}`;
+  const number = COUNTRIES.indexOf(country) + 1;
+  const url = `https://www.google.com/maps/place/${country.name.replaceAll(" ", "+")}`;
   const countryText = (await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: ORIGINAL_PROMPT.replace("COUNTRY_NAME", country),
+    prompt: ORIGINAL_PROMPT.replace("COUNTRY_NAME", country.name),
     max_tokens: 400,
     temperature: 0,
   })).data.choices[0].text.replaceAll("\n", "");
   const date = new Date().toLocaleDateString('fr-fr', { year:"numeric", month:"short", day:"numeric"}).toLocaleUpperCase();
-  const message = `@everyone\n\n${EMOJIS.CUP} **COUNTRY OF THE DAY — ${date}**\n\n**${country.toLocaleUpperCase()}** — (${number}/${COUNTRY_NAMES.length})\n\n${countryText}\n\n${EMOJIS.PIN} Google Maps : ${url}`;
+  const message = `@everyone\n\n${EMOJIS.CUP} **COUNTRY OF THE DAY — ${date}**\n\n${getFlagEmoji(country.iso)}**${country.name.toLocaleUpperCase()}** — (${number}/${COUNTRIES.length})\n\n${countryText}\n\n${EMOJIS.PIN} Google Maps : ${url}\n`;
   
   return message;
 }
@@ -25,13 +24,11 @@ const openaiConnect = () => {
   return new OpenAIApi(config);
 };
 
-function mod(n, m) {
-  return ((n % m) + m) % m;
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char =>  127397 + char.charCodeAt());
+  const emoji = String.fromCodePoint(...codePoints);
+  return emoji ? emoji + '  ' : '';
 }
-
-const pickCountryOfToday = (date) => {
-  const daysSinceStart = Math.floor(
-    (date.getTime() - START_DATE.getTime()) / 1000 / 60 / 60 / 24
-  );
-  return COUNTRY_NAMES[mod(daysSinceStart, COUNTRY_NAMES.length)];
-};
