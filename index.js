@@ -2,7 +2,6 @@ import { COUNTRIES, START_DATE, TRIGGER_TIME } from "./constants.js";
 import { discordConnect } from "./discordConnect.js";
 import { getMessageOfToday } from "./countryMessage.js";
 import { AttachmentBuilder } from "discord.js";
-import sharp from "sharp";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -45,9 +44,7 @@ const pickCountryOfToday = (date) => {
 };
 
 const getFlagImage = async (iso) => {
-  const svg = await fetch(`https://flagicons.lipis.dev/flags/4x3/${iso.toLowerCase()}.svg`);
-  const png = await sharp(await svg.arrayBuffer()).png().resize(320, 240).toBuffer();
-  return new AttachmentBuilder(png, `${iso}.png`)
+  return new AttachmentBuilder(`https://flagcdn.com/h240/${iso.toLowerCase()}.png`, `${iso}.png`)
 }
 
 main();
