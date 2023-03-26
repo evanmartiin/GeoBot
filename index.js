@@ -29,7 +29,7 @@ const tick = async (previousTime) => {
 };
 
 function getTime() {
-  return `${new Date().getHours()}:${new Date().getMinutes()}`;
+  return new Date().toLocaleTimeString("fr-FR", {timeZone: 'Europe/Paris'}).split(':').slice(0, 2).join(':');
 }
 
 function mod(n, m) {
